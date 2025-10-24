@@ -3,6 +3,7 @@ import cors from "cors";
 import { connectToDB } from "./config/db.js";
 import cookieParser from 'cookie-parser';
 import productRouter from "./routes/productRoutes.js";
+import cartRouter from "./routes/cartRoutes.js";	
 import authRouter from "./routes/authRoutes.js";
 import { rateLimit } from 'express-rate-limit';
 
@@ -19,6 +20,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use("/product", productRouter);
+app.use("/cart", cartRouter);
 app.use("/auth", authRouter);
 
 const limiter = rateLimit({

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {WishlistModel} from "../models/WishlistModel.js"
+import {WishlistModel} from "../models/wishlistModel.js"
 import jwt from "jsonwebtoken";
 
 export async function addToWishlist(req, res){

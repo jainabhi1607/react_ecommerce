@@ -10,8 +10,6 @@ export async function addToCart(req, res) {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        // ✅ Get logged in user ID
         const userId = decoded.id || decoded._id;
 
         const { productId, price, quantity } = req.body;

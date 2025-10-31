@@ -23,10 +23,71 @@ const storage = multer.diskStorage({
 })
 const upload = multer({storage: storage})
 
+/**
+ * @swagger
+ * /product/get:
+ *   get:
+ *     summary: Product List
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Find all products
+ */
 productRouter.get("/get", fetchProduct);
+
+/**
+ * @swagger
+ * /product/add:
+ *   get:
+ *     summary: Add product
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Add product
+ */
 productRouter.post("/add", upload.single('image'), addProduct);
-productRouter.put("/edit/:id", editProduct);
+
+
+/**
+ * @swagger
+ * /product/edit/:id:
+ *   get:
+ *     summary: Edit product
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Edit product details including imaage
+ */
+
+productRouter.put("/edit/:id", upload.single('image'),editProduct);
+
+/**
+ * @swagger
+ * /product/product/:id:
+ *   get:
+ *     summary: Single product
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Single product details
+ */
 productRouter.get("/product/:id", fetchSingleProduct);
+
+/**
+ * @swagger
+ * /product/delete/:id:
+ *   get:
+ *     summary: delete product
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: delete a product
+ */
 productRouter.delete("/delete/:id", deleteProduct);
 
 export default productRouter;

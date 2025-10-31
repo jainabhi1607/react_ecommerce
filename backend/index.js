@@ -8,6 +8,8 @@ import authRouter from "./routes/authRoutes.js";
 import wishlistRouter from "./routes/wishlistRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import { rateLimit } from "express-rate-limit";
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './swagger.js';
 
 // Load environment variables from .env file
 import dotenv from "dotenv";
@@ -23,6 +25,8 @@ const corsOptions = {
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
 };
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use("/product", productRouter);

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import {ProductModel} from "../models/productModel.js"
+import {ProductModel} from "../models/productModel.js";
+import {uploadToCloudinary} from "../services/cloudinaryUpload.js";
 
 
 export async function fetchProduct(req, res){
@@ -12,8 +13,10 @@ export async function fetchProduct(req, res){
 
 }
 export async function addProduct(req, res){
-   try { const { name, code,price,description } = req.body;
-  const productToAdd = new ProductModel({ name, code,price,description, image: req.file.path });
+   try { 
+    let url = await uploadToCloudinary(req);
+    const { name, code,price,description } = req.body;
+  const productToAdd = new ProductModel({ name, code,price,description, image: url });
 
   await productToAdd.save();
   res
@@ -35,11 +38,12 @@ export async function fetchSingleProduct(req, res){
 }
 export async function editProduct(req, res){
      try {
+    let image = await uploadToCloudinary(req);
     const { name, code,price,description } = req.body;
     const updatedUser = await ProductModel.findByIdAndUpdate(
       req.params.id,
-      { name, code,price,description },
-      { new: true, runValidators: true }
+      { name, code,price,description ,image},
+      { runValidators: false }
     );
     if(!updatedUser){return res.status(400).json({error:"User not found"})}
     res.json({message: "Product updated",updatedUser})

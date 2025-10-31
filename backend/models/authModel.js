@@ -1,6 +1,37 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Auth:
+ *       type: object
+ *       required:
+ *         - name
+ *         - username
+ *         - email
+ *         - password
+ *       properties:
+ *         _id:
+ *           type: string
+ *         name:
+ *           type: string
+ *         username:
+ *           type: string
+ *         email:
+ *           type: string
+ *         password:
+ *           type: string
+ *         phone:
+ *           type: number
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ */
 import mongoose from "mongoose";
 const AuthSchema = new mongoose.Schema({
-name: {
+  name: {
     type: String,
     required: true,
   },
@@ -21,6 +52,6 @@ name: {
   phone: {
     type: Number,
   },
-},{timestamps: true});
+}, { timestamps: true });
 
 export const AuthModel = mongoose.model("auth", AuthSchema);

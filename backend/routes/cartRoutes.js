@@ -1,39 +1,63 @@
-import { Router } from "express";
-import {addToCart,deleteItemFromCart,fetchCartItems} from "../controllers/cartController.js";
-
-const cartRouter = Router();
+/**
+ * @swagger
+ * tags:
+ *   name: Cart
+ *   description: Shopping cart management endpoints
+ */
 
 /**
  * @swagger
- * /api/cart:
- *   get:
- *     summary: Add item to cart
- *     security:
- *       - cookieAuth: []
+ * /api/cart/add:
+ *   post:
+ *     summary: Add an item to the cart
+ *     tags: [Cart]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             productId: 60e9c6b8f1d3c24b9c6a1234
+ *             price: 500
+ *             quantity: 2
+ *     responses:
+ *       201:
+ *         description: Item added to cart successfully
+ */
+
+/**
+ * @swagger
+ * /api/cart/delete/{id}:
+ *   delete:
+ *     summary: Remove an item from the cart
+ *     tags: [Cart]
  *     parameters:
  *       - in: path
- *         name: productId
+ *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: The product ID to remove
  *     responses:
  *       200:
- *         description: Add item to cart
+ *         description: Item removed from cart successfully
  */
-cartRouter.post('/add',addToCart)
-cartRouter.delete('/delete/:id',deleteItemFromCart)
 
 /**
  * @swagger
- * /api/cart:
+ * /api/cart/fetch:
  *   get:
- *     summary: Get cart items
- *     security:
- *       - cookieAuth: []
+ *     summary: Fetch all cart items for a user
+ *     tags: [Cart]
  *     responses:
  *       200:
  *         description: List of cart items
  */
-cartRouter.get('/fetch',fetchCartItems)
-export default cartRouter; 
+import { Router } from "express";
+import { addToCart, deleteItemFromCart, fetchCartItems } from "../controllers/cartController.js";
+
+const cartRouter = Router();
+
+cartRouter.post('/add', addToCart);
+cartRouter.delete('/delete/:id', deleteItemFromCart);
+cartRouter.get('/fetch', fetchCartItems);
+
+export default cartRouter;

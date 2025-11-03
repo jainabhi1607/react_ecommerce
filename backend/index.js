@@ -29,11 +29,11 @@ const corsOptions = {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(cors(corsOptions));
 app.use(cookieParser());
-app.use("/product", productRouter);
-app.use("/cart", cartRouter);
-app.use("/auth", authRouter);
-app.use("/wishlist", wishlistRouter);
-app.use("/order", orderRouter);
+app.use("/api/product", productRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/wishlist", wishlistRouter);
+app.use("/api/order", orderRouter);
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes

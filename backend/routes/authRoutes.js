@@ -39,7 +39,7 @@
  *       content:
  *         application/json:
  *           example:
- *             email: johndoe@example.com
+ *             username: johndoe@example.com
  *             password: password123
  *     responses:
  *       200:
@@ -83,7 +83,7 @@
  *         description: List of users
  */
 import { Router } from "express";
-import { login, register, authCheck, logout } from "../controllers/authController.js";
+import { login, register, authCheck, logout,fetchUsers } from "../controllers/authController.js";
 
 const authRouter = Router();
 

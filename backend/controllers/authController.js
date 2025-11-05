@@ -22,7 +22,7 @@ export async function login(req, res) {
     res.cookie("authToken", authToken, {
       httpOnly: true,
       secure: true,
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000,
     });
     

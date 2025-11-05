@@ -91,6 +91,6 @@ authRouter.post("/login", login);
 authRouter.post("/register", register);
 authRouter.get("/authCheck", authCheck);
 authRouter.get("/logout", logout);
-orderRouter.get('/fetch', fetchUsers);
+authRouter.get('/fetch', fetchUsers);
 
 export default authRouter;

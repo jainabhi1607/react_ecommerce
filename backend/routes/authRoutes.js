@@ -71,6 +71,17 @@
  *       200:
  *         description: User logged out
  */
+
+/**
+ * @swagger
+ * /api/auth/fetch:
+ *   get:
+ *     summary: Get all users
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: List of users
+ */
 import { Router } from "express";
 import { login, register, authCheck, logout } from "../controllers/authController.js";
 
@@ -80,5 +91,6 @@ authRouter.post("/login", login);
 authRouter.post("/register", register);
 authRouter.get("/authCheck", authCheck);
 authRouter.get("/logout", logout);
+orderRouter.get('/fetch', fetchUsers);
 
 export default authRouter;

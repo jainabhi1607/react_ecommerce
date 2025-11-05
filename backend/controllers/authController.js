@@ -84,3 +84,21 @@ export function logout(req, res) {
     res.status(200).json({ message: "User logout" });
   }
 }
+
+export async function fetchUsers(req, res) {
+    try {
+        const token = req.cookies.authToken;
+        if (!token) {
+            return res.status(401).json({ error: "User is not authenticated" });
+        }
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decoded.id || decoded._id;
+
+        const users = await AuthModel.find({ userId }).sort({
+            createdAt: -1,
+        });
+        res.json(users);
+    } catch (err) {
+        return res.status(400).json({ error: err.message });
+    }
+}

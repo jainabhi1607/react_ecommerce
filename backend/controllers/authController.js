@@ -94,7 +94,7 @@ export async function fetchUsers(req, res) {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decoded.id || decoded._id;
 
-        const users = await AuthModel.find({ userId }).sort({
+        const users = await AuthModel.find().sort({
             createdAt: -1,
         });
         res.json(users);

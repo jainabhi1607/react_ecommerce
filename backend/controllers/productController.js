@@ -45,7 +45,7 @@ export async function editProduct(req, res){
       { name, code,price,description ,image:url},
       { runValidators: false }
     );
-    if(!updatedUser){return res.status(400).json({error:"User not found"})}
+    if(!updatedUser){return res.status(400).json({error:"product not found"})}
     res.json({message: "Product updated",updatedUser})
   } catch (err) {
     res.status(400).json({ error: err.message });

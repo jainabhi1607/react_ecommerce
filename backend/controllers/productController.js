@@ -38,11 +38,11 @@ export async function fetchSingleProduct(req, res){
 }
 export async function editProduct(req, res){
      try {
-    let image = await uploadToCloudinary(req);
+    let url = await uploadToCloudinary(req);
     const { name, code,price,description } = req.body;
     const updatedUser = await ProductModel.findByIdAndUpdate(
       req.params.id,
-      { name, code,price,description ,image},
+      { name, code,price,description ,image:url},
       { runValidators: false }
     );
     if(!updatedUser){return res.status(400).json({error:"User not found"})}

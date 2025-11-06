@@ -32,7 +32,7 @@ export async function fetchSingleProduct(req, res){
     const product = await ProductModel.findById(req.params.id);
     res.json(product);
   } catch (error) {
-    res.status(500).json({ message: "Error in fetching product", error: error });
+    res.status(500).json({ message: "Error in fetching product", error: error }); 
   }
 
 }

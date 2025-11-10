@@ -62,7 +62,7 @@
 /**
  * @swagger
  * /api/auth/logout:
- *   get:
+ *   post:
  *     summary: Logout current user
  *     tags: [Auth]
  *     security:
@@ -90,7 +90,7 @@ const authRouter = Router();
 authRouter.post("/login", login);
 authRouter.post("/register", register);
 authRouter.get("/authCheck", authCheck);
-authRouter.get("/logout", logout);
+authRouter.post("/logout", logout);
 authRouter.get('/fetch', fetchUsers);
 
 export default authRouter;

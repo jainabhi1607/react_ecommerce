@@ -4,9 +4,13 @@ import "dotenv/config";
 export async function uploadToCloudinary(req) {
   // configure Cloudinary
   cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    /*cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    api_secret: process.env.CLOUDINARY_API_SECRET,*/
+
+    cloud_name: 'dospr7srq',
+    api_key: '642215764125218',
+    api_secret: '_angitGuOZjDK42_EDXtoulusE8',
   });
 
   try {

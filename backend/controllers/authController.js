@@ -74,7 +74,7 @@ export function logout(req, res) {
   res.cookie("authToken", '', {
       httpOnly: true,
       secure: true,
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 0,
     });
   if (req.cookies?.authToken) {

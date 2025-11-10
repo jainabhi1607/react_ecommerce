@@ -77,12 +77,8 @@ export function logout(req, res) {
       sameSite: "none",
       maxAge: 0,
     });
-  if (req.cookies?.authToken) {
-    res.status(401).json({ error: "User can't logout" });
-  } else {
     
     res.status(200).json({ message: "User logout" });
-  }
 }
 
 export async function fetchUsers(req, res) {

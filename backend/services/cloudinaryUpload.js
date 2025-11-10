@@ -13,7 +13,7 @@ export async function uploadToCloudinary(req) {
     if (!req || !req.file) {
       throw new Error("No file provided on request (req.file is undefined)");
     }
-    
+    else{}
     let result;
 
     // If using multer with disk storage, file.path will exist

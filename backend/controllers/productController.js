@@ -14,14 +14,12 @@ export async function fetchProduct(req, res){
 }
 export async function addProduct(req, res){
    try { 
-    let url = await uploadToCloudinary(req);
+    let url = await uploadToCloudinary(req.file);
     const { name, code,price,description } = req.body;
   const productToAdd = new ProductModel({ name, code,price,description, image: url });
 
   await productToAdd.save();
-  res
-    .status(201)
-    .json({ message: "Product added successfully", newRecord: productToAdd });
+  res.status(201).json({ message: "Product added successfully", newRecord: productToAdd });
 }
 catch(err){
   res.status(400).json({ error: err.message });

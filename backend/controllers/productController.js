@@ -14,7 +14,7 @@ export async function fetchProduct(req, res){
 }
 export async function addProduct(req, res){
    try { 
-    let url = await uploadToCloudinary(req.file);
+    let url = await uploadToCloudinary(req);
     const { name, code,price,description } = req.body;
   const productToAdd = new ProductModel({ name, code,price,description, image: url });
 

@@ -15,8 +15,8 @@ export async function fetchProduct(req, res){
 export async function addProduct(req, res){
    try { 
     let url = await uploadToCloudinary(req);
-    const { name, code,price,description } = req.body;
-  const productToAdd = new ProductModel({ name, code,price,description, image: url });
+    const { name, code,price,originalPrice,description } = req.body;
+  const productToAdd = new ProductModel({ name, code,price,originalPrice,description, image: url });
 
   await productToAdd.save();
   res.status(201).json({ message: "Product added successfully", newRecord: productToAdd });
@@ -36,11 +36,16 @@ export async function fetchSingleProduct(req, res){
 }
 export async function editProduct(req, res){
      try {
-    let url = await uploadToCloudinary(req);
+      let url = '';
+      if(req.file !==undefined){
+       url = await uploadToCloudinary(req);
+    }
+    
     const { name, code,price,description } = req.body;
     const updatedUser = await ProductModel.findByIdAndUpdate(
       req.params.id,
-      { name, code,price,description ,image:url},
+      url ? { name, code,price,description ,image:url} : { name, code,price,description},
+      
       { runValidators: false }
     );
     if(!updatedUser){return res.status(400).json({error:"product not found"})}

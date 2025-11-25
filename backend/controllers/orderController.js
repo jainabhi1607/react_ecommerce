@@ -37,9 +37,7 @@ export async function createOrder(req, res) {
             cart.product.map(async (item) => {
                 let productArr = {};
 
-                const productDetails = await ProductModel.findById(
-                    req.params.id
-                );
+                const productDetails = await ProductModel.findById(item.productId);
                 productArr.orderId = savedOrder._id;
                 productArr.productId = item.productId;
                 productArr.price = productDetails.price;
@@ -100,7 +98,7 @@ export async function singleOrder(req, res) {
         }
 
         const orderProducts = await OrderProductModel.find({ orderId: orderId })
-            .populate("productId", "name price image") // fetch product details //.populate("productId");
+            .populate("productId", "name image") // fetch product details //.populate("productId");
             .lean();
         res.status(200).json({
             orders,

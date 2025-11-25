@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { CartModel } from "../models/cartModel.js";
 import jwt from "jsonwebtoken";
+import { ProductModel } from "../models/productModel.js";
 
 export async function addToCart(req, res) {
     try {
@@ -11,10 +12,12 @@ export async function addToCart(req, res) {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decoded.id || decoded._id;
-
-        const { productId, price, quantity } = req.body;
+        let { productId, price, quantity } = req.body;
         const checkUserCart = await CartModel.findOne({ userId });
 
+        const productDetails = await ProductModel.findById(productId);
+        price = productDetails.price;
+        console.log("Price",price);
         if (checkUserCart) {
             if (
                 checkUserCart.product.some(
@@ -86,11 +89,11 @@ export async function deleteItemFromCart(req, res) {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decoded.id;
-
         const cartItem = await CartModel.findOne({
             _id: req.params.id,
             userId: userId,
         });
+        console.log("id is: ",cartItem)
 
         if (!cartItem) {
             return res

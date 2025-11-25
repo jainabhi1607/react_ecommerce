@@ -3,6 +3,7 @@ import { OrderModel } from "../models/orderModel.js";
 import { OrderProductModel } from "../models/orderProductModel.js";
 import jwt from "jsonwebtoken";
 import { CartModel } from "../models/cartModel.js";
+import { ProductModel } from "../models/productModel.js";
 
 export async function createOrder(req, res) {
     try {
@@ -32,12 +33,21 @@ export async function createOrder(req, res) {
 
         const savedOrder = await newOrder.save();
 
-        const orderProducts = cart?.product?.map((item) => ({
-            orderId: savedOrder._id,
-            productId: item.productId,
-            price: item.price,
-            quantity: item.quantity,
-        }));
+        const orderProducts = await Promise.all(
+            cart.product.map(async (item) => {
+                let productArr = {};
+
+                const productDetails = await ProductModel.findById(
+                    req.params.id
+                );
+                productArr.orderId = savedOrder._id;
+                productArr.productId = item.productId;
+                productArr.price = productDetails.price;
+                productArr.quantity = item.quantity;
+
+                return productArr;
+            })
+        );
 
         await OrderProductModel.insertMany(orderProducts);
 

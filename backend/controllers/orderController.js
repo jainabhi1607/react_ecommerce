@@ -98,7 +98,7 @@ export async function singleOrder(req, res) {
         }
 
         const orderProducts = await OrderProductModel.find({ orderId: orderId })
-            .populate("productId", "name image") // fetch product details //.populate("productId");
+            .populate("productId", "name image price") // fetch product details //.populate("productId");
             .lean();
         res.status(200).json({
             orders,
